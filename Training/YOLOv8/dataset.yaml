@@ -1,0 +1,12 @@
+path: C:/training/kaggle
+train: train/images
+val: val/images
+names:
+  0: Quartzity
+  1: Live_Knot
+  2: Marrow
+  3: resin
+  4: Dead_Knot
+  5: knot_with_crack
+  6: Knot_missing
+  7: Crack
