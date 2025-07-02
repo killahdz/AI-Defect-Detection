@@ -1,8 +1,14 @@
 # AI Defect Detection – YOLOv8 Training & Evaluation Suite
 
-This repository contains a set of professional-grade Python scripts for training, evaluating, and visualizing YOLOv8-based object detection models, originally built for wood defect identification. It is designed for industrial AI workflows and includes robust support for both custom training and real-time inference analysis.
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![MIT License](https://img.shields.io/github/license/killahdz/AI-Defect-Detection)
+![Last Commit](https://img.shields.io/github/last-commit/killahdz/AI-Defect-Detection)
 
-![image](https://github.com/user-attachments/assets/140c93aa-e7e8-4a5d-bcdb-40cfa0352265)
+This repository contains professional-grade Python scripts for training, evaluating, and visualizing YOLOv8-based object detection models, originally built for wood defect identification but adaptable to other domains.
+
+![Sample Output](https://github.com/user-attachments/assets/140c93aa-e7e8-4a5d-bcdb-40cfa0352265)
+
+---
 
 ## 🎯 Purpose
 
@@ -15,9 +21,37 @@ Developed to support high-accuracy AI defect detection in timber processing and 
 
 ---
 
+## 🚀 Quickstart
+
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/killahdz/AI-Defect-Detection.git
+   cd AI-Defect-Detection
+   ```
+
+2. **Install dependencies**:
+   ```sh
+   pip install ultralytics opencv-python matplotlib numpy scipy seaborn pyyaml torch
+   ```
+
+3. **Prepare your dataset** (see below).
+
+4. **Train a model**:
+   ```sh
+   python train_yolov8.py --data dataset.yaml --model yolov8m.pt --img 1280 --epochs 100
+   ```
+
+5. **Evaluate your trained model**:
+   ```sh
+   python eval_yolov8.py --weights wood_defect_runs/best.pt --data dataset.yaml
+   ```
+
+---
+
 ## 📦 What’s Included
 
 ### ✅ Training Scripts
+
 Custom YOLOv8 training routines with advanced configuration:
 
 - Supports multiple model sizes (`n`, `s`, `m`, `l`, `x`)
@@ -28,6 +62,7 @@ Custom YOLOv8 training routines with advanced configuration:
 - Configurable dataset format (Kaggle-style or Dataset Ninja)
 
 ### ✅ Evaluation Scripts
+
 Interactive tools for inference and metrics:
 
 - Live prediction with YOLOv8 checkpoints
@@ -38,25 +73,32 @@ Interactive tools for inference and metrics:
 
 ---
 
-## 🔍 Sample Use Cases
+## 📂 Directory Layout
 
-- 🔧 Fine-tune YOLOv8 models on custom wood defect datasets
-- 🧪 Evaluate model generalization across varying class distributions
-- 📊 Visualize performance for each class as images stream through
-- 🚀 Export trained weights for production deployment or edge use (ONNX-ready)
+| Path                         | Description                                    |
+|------------------------------|------------------------------------------------|
+| `train_yolov8.py`            | Training script for YOLOv8                     |
+| `eval_yolov8.py`             | Evaluation and visualization script            |
+| `utils.py`                   | Utility functions (augmentation, metrics, etc) |
+| `models/*.pt` / `*.onnx`     | Trained model weights (YOLOv8 + exported ONNX) |
+| `dataset.yaml`               | Dataset configuration for YOLOv8 training      |
+| `train/images`               | Training images                                |
+| `train/labels`               | YOLO-format label files                        |
+| `wood_defect_runs/`          | Output directory for model checkpoints/plots   |
 
 ---
 
-## 📂 Directory Layout
+## 📑 Dataset Format
 
-| Path                         | Description                                                   |
-|------------------------------|---------------------------------------------------------------|
-| `*.py`                       | Training or evaluation scripts                                |
-| `models/*.pt` / `*.onnx`     | Trained model weights (YOLOv8 + exported ONNX)               |
-| `dataset.yaml`               | Dataset configuration for YOLOv8 training                    |
-| `train/images`               | Training images                                               |
-| `train/labels`               | YOLO-format label files                                       |
-| `wood_defect_runs/`          | Output directory for model checkpoints and plots             |
+- Images are stored in `train/images/`
+- Labels (YOLO format) in `train/labels/`
+- `dataset.yaml` example:
+  ```yaml
+  train: ./train/images
+  val: ./val/images
+  nc: 4  # number of classes
+  names: ['knot', 'crack', 'hole', 'discoloration']
+  ```
 
 ---
 
@@ -70,19 +112,15 @@ Interactive tools for inference and metrics:
 | `yolov8l.pt`  | ~43M       | High accuracy, heavy GPU (A100 etc.)   |
 | `yolov8x.pt`  | ~68M       | Maximum accuracy, slowest              |
 
-**Recommended:** `yolov8m.pt` with 1280×1280 or `yolov8s.pt` with 960×960 for balance of speed and accuracy.
+**Recommended:** `yolov8m.pt` with 1280×1280 or `yolov8s.pt` with 960×960 for balanced speed and accuracy.
 
 ---
 
 ## 🛠️ Requirements
 
-Install dependencies:
-
-
-
 - Python 3.10+
 - `ultralytics`
-- `pytorch`
+- `torch`
 - `opencv-python`
 - `matplotlib`
 - `numpy`
@@ -91,8 +129,9 @@ Install dependencies:
 - `pyyaml`
 
 Install via pip:
-
-`pip install ultralytics opencv-python matplotlib numpy scipy seaborn pyyaml pytorch`
+```sh
+pip install ultralytics opencv-python matplotlib numpy scipy seaborn pyyaml torch
+```
 
 ---
 
@@ -105,12 +144,29 @@ Install via pip:
 
 ---
 
+## 🧩 Configuration & Options
+
+- All scripts accept standard CLI arguments (`--data`, `--weights`, `--img`, `--epochs`, etc.).
+- Augmentation and validation options can be toggled in the script/config.
+- Results and logs are saved in `wood_defect_runs/`.
+
+---
+
+## 👨‍💻 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.  
+If you use this toolkit in your research or production, a citation or mention is appreciated.
+
+---
+
 ## 🧠 Built For
 
 - Computer vision researchers
 - AI engineers working on visual QA
 - Industrial automation teams using camera-based defect detection
 - Students or practitioners studying YOLOv8 workflows
+
+---
 
 ## 📄 License
 
@@ -122,7 +178,7 @@ This repository is licensed under the [MIT License](./LICENSE).
 ## 👨‍💻 About the Author
 
 **Daniel Kereama** is a senior engineer with 20+ years of experience in enterprise .NET, computer vision, and applied AI.  
-Built with a focus on building production-grade, diagnostics-friendly tooling for model evaluation in industrial AI deployments.
+Focused on building production-grade, diagnostics-friendly tooling for model evaluation in industrial AI deployments.
 
 ---
 
